@@ -109,6 +109,19 @@ auto cluster::speculative_execution(
     return false;
 }
 
+auto cluster::io_threads(uint16_t io_threads) -> bool
+{
+    if (m_cass_cluster_ptr != nullptr && io_threads >= 0)
+    {
+        CassError error = cass_cluster_set_num_threads_io(
+            m_cass_cluster_ptr.get(),
+            static_cast<cass_uint64_t>(io_threads),
+        );
+        return (error == CassError::CASS_OK);
+    }
+    return false;
+}
+
 auto cluster::heartbeat_interval(std::chrono::seconds interval, std::chrono::seconds idle_timeout) -> bool
 {
     if (m_cass_cluster_ptr != nullptr)

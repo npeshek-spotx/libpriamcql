@@ -119,6 +119,12 @@ public:
         std::chrono::milliseconds delay,
         uint16_t                  max_executions) -> bool;
 
+     /**
+     * Controls the number of io threads for networking to the Cluster.
+     * @param io_threads Controls number of threads for network io
+     * @return True if threads were changed.
+     */
+    auto io_threads(uint16_t io_threads) -> bool;
     /**
      * Sets the heartbeat interval for the hosts in the Cluster to determine if they are still responding.
      * @param interval The time interval to send a heartbeat request.
