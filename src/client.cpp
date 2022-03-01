@@ -90,7 +90,7 @@ auto client::median_request_time() -> std::chrono::milliseconds
     cass_session_get_metrics(m_cass_session_ptr.get(), &metrics);
     auto scylla_stats_median =  std::chrono::microseconds(metrics.requests.median);
     
-    return scylla_stats_median;
+    return std::chrono::duration_cast<ms>(scylla_stats_median);
 }
 
 auto client::execute_statement(const statement& statement, std::chrono::milliseconds timeout, consistency c)
