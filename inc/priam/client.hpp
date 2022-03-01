@@ -91,6 +91,11 @@ public:
      * @return The number of active requests.
      */
     auto size() const -> size_t { return m_active_requests.load(std::memory_order_relaxed); }
+    
+    /**
+     * @return median request time from CassMetrics in the connector.
+     */
+    auto median_request_time() -> std::chrono::milliseconds;
 
     /**
      * @return True if there are no active requests.
