@@ -84,6 +84,15 @@ auto client::prepared_lookup(const std::string& name) -> std::shared_ptr<prepare
     return {nullptr};
 }
 
+auto client::median_request_time() -> std::chrono::milliseconds
+{
+    CassMetrics metrics;
+    cass_session_get_metrics(m_cass_session_ptr.get(), &metrics);
+    auto scylla_stats_median =  std::chrono::microseconds(metrics.requests.median);
+    
+    return scylla_stats_median;
+}
+
 auto client::execute_statement(const statement& statement, std::chrono::milliseconds timeout, consistency c)
     -> priam::result
 {
